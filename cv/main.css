@@ -69,13 +69,24 @@ nav {
 /** Skills **/
 .sec-skills {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
   column-gap: 2rem;
+  grid-template-columns: 1fr;
 
   & h1 {
-    grid-column: 1 / span 2;
+    grid-column: 1;
   }
 }
+
+@media (width > 700px) {
+  .sec-skills {
+    grid-template-columns: repeat(2, 1fr);
+
+    & h1 {
+      grid-column: 1 / span 2;
+    }
+  }
+}
+
 .sec-skills ul {
   margin-left: 2rem;
 
