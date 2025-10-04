@@ -1,0 +1,5 @@
+baseURL = 'https://lw.dev.br/blog/'
+languageCode = 'pt-BR'
+defaultContentLanguage = 'pt-br'
+title = '@vouxique'
+theme = 'default'

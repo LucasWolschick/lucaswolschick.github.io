@@ -121,6 +121,19 @@ main {
   & ul {
     list-style: none;
     display: flex;
+    flex-flow: column;
+    gap: 1lh;
+  }
+}
+
+@media (min-width: 500px) {
+  .socials ul {
+    gap: 0lh;
+  }
+
+  .nav ul {
+    flex-flow: row;
+    gap: 2ch;
   }
 }
 
