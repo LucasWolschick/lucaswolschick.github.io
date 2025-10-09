@@ -22,7 +22,7 @@ Francamente, era um negócio meio insustentável, e se o curso demorasse muito m
 
 Mas quando acabou de repente, eu fiquei mal. É ruimm ficar mesmo um dia parado depois de quatro anos num ritmo absurdo. Esqueci como se descansa. Depois que consegui um emprego, isso melhorou um pouco, mas ainda tenho um pouco desta sensação.
 
-Veja, não é que essas demandas não existam no trabalho, mas elas se manifestam de um modo muito mais regular e previsível, e, fora ocasiões à parte, são preocupações que vivem com você somente entre as 08h e as 18h, de segunda a sexta-feira.
+Veja, não é que essas demandas não existam no trabalho, mas elas se manifestam de um modo muito mais regular e previsível, e, fora ocasiões à parte, são preocupações que vivem com você somente entre as 08h e as 18h, de segunda a sexta-feira. Das 18h às 08h tem absolutamente nada! (benção ou pesadelo dependendo de quem você pergunta)
 
 ---
 
