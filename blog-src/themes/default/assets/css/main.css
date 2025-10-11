@@ -1,7 +1,41 @@
+:root {
+  --bg-color: #f9f5d8;
+  --text-color: #222;
+  --border-color: black;
+  --link-color: rgb(0, 90, 71);
+}
+
+@media (prefers-color-scheme: dark)
+{
+  :root {
+    --bg-color: #222;
+    --text-color: #fff;
+    --border-color: #fff;
+    --link-color: #99e;
+  }
+}
+
+html {
+  background-color: var(--bg-color);
+  color-scheme: light dark;
+
+  font-size: 18px;
+  font-family: Georgia, serif;
+}
+
+@media (min-width: 1400px) {
+  html {
+    font-size: 1.25rem;
+  }
+}
+
 body {
-  font-family: sans-serif;
-  max-width: min(75ch, 100% - 4rem);
+  max-width: min(70ch, 100% - 3rem);
   margin-inline: auto;
+}
+
+ol li, ul li {
+  margin: 0.5rem 0;
 }
 
 main {
@@ -24,8 +58,17 @@ ul {
 }
 
 a {
-  color: #00a;
+  color: var(--link-color);
   text-decoration: none;
+}
+
+a:hover {
+  text-decoration: solid underline;
+}
+
+nav a.active {
+  font-weight: bold;
+  outline-width: 2px;
 }
 
 /* Main layout */
@@ -42,6 +85,7 @@ body > header {
   & nav ul {
     list-style: none;
     padding: 0;
+    margin: 0;
     
     display: flex;
     gap: 1ch;
@@ -49,16 +93,17 @@ body > header {
     & a {
       display: inline-block;
       padding: 0.5lh 1ch;
-      background: white;
-      border: 1px solid black;
+      background: var(--bg-color);
+      outline: 1px solid var(--border-color);
     }
   }
 }
 
 body > footer {
-  border-top: 1px dotted black;
+  border-top: 1px dotted var(--border-color);
   text-align: center;
   margin: 1lh 0;
+  padding-bottom: 1rem;
 }
 
 /* Page summaries */
@@ -67,14 +112,16 @@ body > footer {
     display: flex;
     align-items: baseline;
     justify-content: space-between;
-
-    border-bottom: 1px dotted black;
   }
 
   & h2 a::before {
     content: '?- ';
     font-family: monospace;
   }
+}
+
+.page-title {
+  margin: 0.5lh 0;
 }
 
 .page-summary {
@@ -87,7 +134,7 @@ body > footer {
 
 /* Page */
 article header {
-  border-bottom: 1px dotted black;
+  border-bottom: 1px dotted var(--border-color);
 
   .item-row {
     display: flex;
@@ -104,11 +151,16 @@ article header {
 article .tags ul {
   list-style: none;
   padding: 0;
+  margin: 0;
   display: flex;
   gap: 1ch;
 
+  & li {
+    margin: 0;
+  }
+
   & li a {
-    text-decoration: solid #00a underline;
+    text-decoration: solid var(--link-color) underline;
   }
 }
 

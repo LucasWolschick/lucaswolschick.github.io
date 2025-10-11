@@ -1,5 +1,5 @@
 {{ define "main" }}
-  <h1>{{ .Title }}</h1>
+  <h1>Posts com {{.Data.Singular }}: {{ .Title }}</h1>
   {{ .Content }}
   {{ range .Pages }}
     {{ partial "page/title.html" . }}

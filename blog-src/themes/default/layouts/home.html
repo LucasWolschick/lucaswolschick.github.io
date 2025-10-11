@@ -1,5 +1,4 @@
 {{ define "main" }}
-  <h1>Posts</h1>
   {{ .Content }}
   {{ range site.RegularPages }}
     {{ partial "page/summary.html" . }}
