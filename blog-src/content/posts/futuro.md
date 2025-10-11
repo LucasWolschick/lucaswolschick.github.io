@@ -24,8 +24,6 @@ Mas quando acabou de repente, eu fiquei mal. É ruimm ficar mesmo um dia parado 
 
 Veja, não é que essas demandas não existam no trabalho, mas elas se manifestam de um modo muito mais regular e previsível, e, fora ocasiões à parte, são preocupações que vivem com você somente entre as 08h e as 18h, de segunda a sexta-feira. Das 18h às 08h tem absolutamente nada! (benção ou pesadelo dependendo de quem você pergunta)
 
----
-
 Então, para me colocar num ritmo mais acelerado novamente, estou traçando planos para o meu futuro. Na UEM, eu tinha a meta de me formar em 4 anos. Agora, para mim, coloquei como objetivos:
 
 - Empreender em até 10 anos;

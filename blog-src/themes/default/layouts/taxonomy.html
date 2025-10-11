@@ -1,7 +1,13 @@
 {{ define "main" }}
+<main class="taxonomy">
   <h1>{{ .Title }}</h1>
   {{ .Content }}
-  {{ range .Pages }}
-    <h2><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h2>
-  {{ end }}
+  <ul>
+    {{ range .Data.Terms.ByCount }}
+    <li>
+      <a href="{{ .Page.RelPermalink }}">{{ .Page.LinkTitle }}</a> ({{ .Count }})
+    </li>
+    {{ end }}
+  </ul>
+</main>
 {{ end }}
