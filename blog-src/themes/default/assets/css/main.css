@@ -29,13 +29,22 @@ html {
   }
 }
 
+.site-name {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 32px;
+}
+
+body > footer {
+  font-family: 'Courier New', Courier, monospace;
+}
+
 body {
   max-width: min(70ch, 100% - 3rem);
   margin-inline: auto;
 }
 
 ol li, ul li {
-  margin: 0.5rem 0;
+  margin: 0.5lh 0;
 }
 
 main {
@@ -74,7 +83,6 @@ nav a.active {
 /* Main layout */
 body > header {
   display: flex;
-  /* background-color: #eee; */
 
   flex-flow: row wrap;
   align-items: baseline;
@@ -103,28 +111,36 @@ body > footer {
   border-top: 1px dotted var(--border-color);
   text-align: center;
   margin: 1lh 0;
-  padding-bottom: 1rem;
+  padding-bottom: 1lh;
 }
 
 /* Page summaries */
-.page-title, .page-summary {
+.page-title {
+  & header {
+    display: flex;
+    gap: 1ch;
+  }
+
+  & h2 a::before {
+    font-family: monospace;
+  }
+
+  margin: 0.5lh 0;
+}
+
+.page-summary {
   & header {
     display: flex;
     align-items: baseline;
     justify-content: space-between;
+    border-bottom: 1px dotted var(--border-color);
   }
 
   & h2 a::before {
     content: '?- ';
     font-family: monospace;
   }
-}
 
-.page-title {
-  margin: 0.5lh 0;
-}
-
-.page-summary {
   & .read-more {
     font-style: italic;
   }
@@ -133,7 +149,7 @@ body > footer {
 }
 
 /* Page */
-article header {
+article.page header {
   border-bottom: 1px dotted var(--border-color);
 
   .item-row {
@@ -148,7 +164,7 @@ article header {
   }
 }
 
-article .tags ul {
+article.page .tags ul {
   list-style: none;
   padding: 0;
   margin: 0;
@@ -164,7 +180,7 @@ article .tags ul {
   }
 }
 
-article footer {
+article.page footer {
   font-style: italic;
 }
 

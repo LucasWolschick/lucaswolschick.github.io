@@ -1,7 +1,11 @@
 {{ define "main" }}
-  <h1>Posts com {{.Data.Singular }}: {{ .Title }}</h1>
+  <h1>{{.Data.Singular | humanize }}: {{ .Title }}</h1>
   {{ .Content }}
-  {{ range .Pages }}
-    {{ partial "page/title.html" . }}
-  {{ end }}
+  <ul>
+    {{ range .Pages }}
+      <li>
+      {{ partial "page/title.html" . }}
+      </li>
+    {{ end }}
+  </ul>
 {{ end }}
