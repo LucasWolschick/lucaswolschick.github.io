@@ -43,6 +43,16 @@ body {
   margin-inline: auto;
 }
 
+.highlight {
+  padding: 4px;
+  outline: 1px dashed var(--border-color);
+
+  & pre {
+    margin: 0;
+    padding: 1lh;
+  }
+}
+
 ol li, ul li {
   margin: 0.5lh 0;
 }

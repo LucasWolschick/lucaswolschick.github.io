@@ -3,3 +3,7 @@ languageCode = 'pt-BR'
 defaultContentLanguage = 'pt-br'
 title = '@vouxique'
 theme = 'default'
+
+[markup]
+  [markup.highlight]
+    noClasses = false

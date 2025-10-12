@@ -1,4 +1,26 @@
-{{- with resources.Get "css/main.css" }}
+{{ $syntaxLight := resources.Get "css/syntax-light.css" }}
+{{ $syntaxDark := resources.Get "css/syntax-dark.css" }}
+{{ $main := resources.Get "css/main.css" }}
+
+{{- if hugo.IsDevelopment -}}
+<style>
+@media (prefers-color-scheme: dark) {
+  {{ $syntaxDark.Content | safeCSS }}
+}
+@media (prefers-color-scheme: light) {
+  {{ $syntaxLight.Content | safeCSS }}
+}
+</style>
+{{- else -}}
+@media (prefers-color-scheme: dark) {
+  {{ $syntaxDark.Content | safeCSS | minify }}
+}
+@media (prefers-color-scheme: light) {
+  {{ $syntaxLight.Content | safeCSS | minify }}
+}
+{{- end -}}
+
+{{- with $main }}
   {{- if hugo.IsDevelopment }}
     <link rel="stylesheet" href="{{ .RelPermalink }}">
   {{- else }}
