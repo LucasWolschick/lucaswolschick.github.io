@@ -46,6 +46,7 @@ body {
 .highlight {
   padding: 4px;
   outline: 1px dashed var(--border-color);
+  overflow: auto;
 
   & pre {
     margin: 0;
