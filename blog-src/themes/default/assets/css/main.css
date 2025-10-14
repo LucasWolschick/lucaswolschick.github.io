@@ -128,8 +128,8 @@ body > footer {
 /* Page summaries */
 .page-title {
   & header {
-    display: flex;
-    gap: 1ch;
+    display: flex wrap;
+    column-gap: 1ch;
   }
 
   & h2 a::before {
