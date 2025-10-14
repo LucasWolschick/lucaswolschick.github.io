@@ -146,7 +146,7 @@ body > footer {
     flex-flow: row wrap;
     justify-content: space-between;
     border-bottom: 1px dotted var(--border-color);
-    gap: 5ch;
+    column-gap: 5ch;
   }
 
   & h2 a::before {
@@ -170,7 +170,7 @@ article.page header {
     align-items: baseline;
     flex-flow: row wrap;
     justify-content: space-between;
-    gap: 5ch;
+    column-gap: 5ch;
   }
 
   & h1 a::before {
