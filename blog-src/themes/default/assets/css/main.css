@@ -107,6 +107,7 @@ body > header {
     margin: 0;
     
     display: flex;
+    flex-flow: row wrap;
     gap: 1ch;
 
     & a {
@@ -128,7 +129,8 @@ body > footer {
 /* Page summaries */
 .page-title {
   & header {
-    display: flex wrap;
+    display: flex;
+    flex-flow: row wrap;
     column-gap: 1ch;
   }
 
@@ -184,6 +186,7 @@ article.page .tags ul {
   padding: 0;
   margin: 0;
   display: flex;
+  flex-flow: row wrap;
   gap: 1ch;
 
   & li {
