@@ -143,6 +143,7 @@ body > footer {
   & header {
     display: flex;
     align-items: baseline;
+    flex-flow: row wrap;
     justify-content: space-between;
     border-bottom: 1px dotted var(--border-color);
     gap: 5ch;
@@ -167,6 +168,7 @@ article.page header {
   .item-row {
     display: flex;
     align-items: baseline;
+    flex-flow: row wrap;
     justify-content: space-between;
     gap: 5ch;
   }
