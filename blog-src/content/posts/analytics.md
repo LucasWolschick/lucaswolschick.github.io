@@ -1,7 +1,7 @@
 +++
 title = 'Analytics'
 date = 2025-10-14T21:50:00-03:00
-tags = ['blog']
+tags = ['blog'] 
 +++
 
 Eu não gosto de analytics, então não vou colocar rastreadores no meu blog.
