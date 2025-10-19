@@ -2,6 +2,10 @@
 <html lang="{{ site.Language.LanguageCode }}" dir="{{ or site.Language.LanguageDirection `ltr` }}">
 <head>
   {{ partial "head.html" . }}
+  {{ $noop := .WordCount }}
+  {{ if .Page.Store.Get "hasMath" }}
+    <link href="https://cdn.jsdelivr.net/npm/katex@0.16.23/dist/katex.min.css" rel="stylesheet" integrity="sha384-//SZkxyB7axjCAopkAL1E1rve+ZSPKapD89Lo/lLhcsXR+zOYl5z6zJZEFXil+q0" crossorigin="anonymous">
+  {{ end }}
 </head>
 <body>
   <header>

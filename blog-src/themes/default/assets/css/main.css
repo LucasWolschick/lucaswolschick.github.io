@@ -1,3 +1,5 @@
+@import url('/blog/fonts/gelasio/gelasio.css');
+
 :root {
   --bg-color: #f9f5d8;
   --text-color: #222;
@@ -20,7 +22,7 @@ html {
   color-scheme: light dark;
 
   font-size: 18px;
-  font-family: Georgia, serif;
+  font-family: "Gelasio", Georgia, serif;
 }
 
 @media (min-width: 1400px) {
@@ -43,16 +45,53 @@ body {
   margin-inline: auto;
 }
 
-.highlight {
-  padding: 4px;
+/* Content */
+pre {
+  padding: 1lh;
   outline: 1px dashed var(--border-color);
   overflow: auto;
+}
 
-  & pre {
-    margin: 0;
-    padding: 1lh;
+table {
+  table-layout: fixed;
+  margin: 1lh auto;
+  border-collapse: collapse;
+
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+
+  font-family: monospace;
+
+  display: block table;
+  max-width: 100%;
+  overflow: auto;
+
+  & th, & td {
+    padding: 0.5ch 1ch;
+  }
+
+  & th {
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+    
+    font-weight: bolder;
   }
 }
+
+img {
+  display: block;
+  max-width: 70%;
+  margin: 0 auto;
+}
+
+blockquote {
+  margin: 1lh 1ch;
+  background-color: color-mix(in srgb, var(--border-color), #0000 95%);
+  border-left: 1px dashed color-mix(in srgb, var(--border-color), #0000 80%);
+  padding: 0.5ch 2ch;
+}
+
+/* Misc */
 
 ol li, ul li {
   margin: 0.5lh 0;
@@ -60,12 +99,6 @@ ol li, ul li {
 
 main {
   line-height: 1.5;
-}
-
-img {
-  display: block;
-  max-width: 100%;
-  margin: 0 auto;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -200,6 +233,37 @@ article.page .tags ul {
 
 article.page footer {
   font-style: italic;
+}
+
+article.page main {
+  & h1, h2, h3
+  {
+    border-bottom: 1px dotted var(--border-color);
+    width: fit-content;
+    margin: 1em 0;
+  }
+
+  & h1 {
+    font-size: 1.875em;
+  }
+
+  & h2 {
+    font-size: 1.5em;
+  }
+
+  & h3 {
+    font-size: 1.2em;
+  }
+}
+
+article.page .footnotes {
+  margin: 1lh 0;
+  border-top: 1px dotted black;
+  border-bottom: 1px dotted black;
+  
+  & hr {
+    display: none;
+  }
 }
 
 /* nav */

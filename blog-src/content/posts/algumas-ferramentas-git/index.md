@@ -4,13 +4,13 @@ date = 2025-10-19T12:00:00-03:00
 tags = ['git', 'today-i-learned']
 +++
 
-Vou apresentar duas ferramentas de busca que mais pessoas deveriam conhecer e que podem ajudar no seu dia-a-dia, trabalhando com Git.
+Vou apresentar duas ferramentas de busca que mais pessoas deveriam conhecer, e que talvez possam ajudar no seu dia-a-dia, trabalhando com Git.
 
 ## `git log -S`
 
-Algo que você pode precisar fazer, por vezes, é descobrir em que _commits_ uma função, variável ou conceito foi introduzido, removido ou alterado. Sem ferramentas adicionais, o máximo que conseguimos é buscar nos arquivos atualmente em checkout no nosso repositório, mas isso não nos ajuda muito.
+Algo que você pode precisar fazer, por vezes, é descobrir em quais _commits_ uma função, variável ou conceito foi introduzido, removido ou alterado. 
 
-O `git log -S` --- carinhosamente chamado de "git pickaxe" devido à aparência da flag --- nos permite buscar nos _diffs_ do nosso repositório por uma _string_ que especificarmos. Isto é, ao invés de procurar nos arquivos, procuramos nas mudanças deles:
+O `git log -S`---carinhosamente chamado de "git pickaxe" devido à aparência da flag, que parece uma picareta---nos permite buscar nos _diffs_ do nosso repositório por uma _string_ que especificada. Isto é, ao invés de procurar nos arquivos, ele procura nas suas _mudanças_:
 
 ```sh
 $ git log -S '+++'
@@ -35,9 +35,7 @@ Date:   Wed Oct 8 21:49:47 2025 -0300
 [...]
 ```
 
-Dito de outra forma, nas palavras do [livro Pro Git](https://git-scm.com/book/pt-br/v2/Git-Tools-Searching), ele é útil quando "você não está procurando **onde** um termo existe, mas **quando** ele existe ou foi introduzido." É uma mudança do domínio do espaço para o domínio do tempo.
-
-Se consultarmos um dos _commits_, vemos que, realmente, a _string_ '+++' foi introduzida:
+Se consultarmos um dos _commits_ que a ferramenta retornou, vemos que, realmente, a _string_ '+++' foi introduzida nele:
 
 ```sh
 $ git show a91d246f0a43fc2c33fd2aaef2f707c263f91b10
@@ -64,23 +62,23 @@ index 0000000..db6d1f4
 [...]
 ```
 
+Dito de outra forma, nas palavras do [livro Pro Git](https://git-scm.com/book/pt-br/v2/Git-Tools-Searching), ele é útil quando "você não está procurando _onde_ um termo existe, mas _quando_ ele existe ou foi introduzido." Você não está mais procurando no espaço, está procurando no tempo.
+
 ### Um exemplo prático
 
-Essa semana, no trabalho, eu estava refatorando uma classe removendo código legado. O projeto no qual trabalho requer 100% de cobertura de testes como crivo de qualidade. Após a refatoração (que teve vários _commits_), vi que a cobertura diminuiu para 99%.
+Essa semana, no trabalho, eu estava refatorando uma classe e tive que remover um pouco de código antigo. O projeto do qual participo possui uma *quality gate* que requer 100% de cobertura dos testes para que as mudanças possam ser integradas na `master`. Após a refatoração (que teve vários _commits_), vi que a cobertura tinha diminuído para 99%.
 
-Fui ver no relatório de cobertura e descobri que um dos métodos que existia deixou de ser usado. Fiquei confuso, pois não lembrava de ter visto esse método em especial. Para ver se eu tinha feito besteira e apagado algo que não deveria, fui lá e executei o `git log -S`:
+Estranhado, fui ver no relatório de cobertura e descobri que as minhas mudanças fizeram com que um dos métodos do projeto deixasse de ser usado. Porém, eu não lembrava de ter visto esse método em lugar nenhum enquanto trabalhava. Para ver se eu tinha feito besteira e apagado algo que não deveria, fui lá e executei o `git log -S`:
 
 ```sh
 git log -S 'MethodNameGoesHere' --oneline -p
 ```
 
-> obs: a flag `-p` imprime na tela o _diff_ do _commit_, e a flag `--oneline` o mostra de maneira resumida --- apenas o hash e primeira linha da mensagem. Outra flag útil é `--reverse`, para mostrar os commits mais velhos primeiro.
-
 Vendo o modo como ele era usado, pude confirmar que eu podia remover ele sem problemas.
 
-### Outro exemplo
+> 💡 **Dica:** a flag `-p` imprime na tela o _diff_ do _commit_, e a flag `--oneline` o mostra de maneira resumida---apenas o hash e primeira linha da mensagem. Outra flag útil é `--reverse`, para mostrar os commits mais velhos primeiro.
 
-Outro exemplo: identificar os _commits_ onde uma chamada de log foi introduzida ou removida:
+Outro exemplo! Suponha que queremos identificar os _commits_ onde uma chamada de log foi introduzida ou removida:
 
 ```sh
 git log -S '.Info(' --oneline -p
@@ -90,13 +88,15 @@ Pode ser útil se você está monitorando o uso de _logging_ na sua aplicação.
 
 ### Flags adicionais
 
-Ao invés de `-S`, você também pode usar `-G` para usar uma expressão regular, ou usar `-L` para ver como uma função evoluiu ao longo do tempo. Confira a documentação do `git log --help` para mais detalhes, veja o livro, experimente e me conte os resultados :-)
+Ao invés de `-S`, você pode usar `-G` caso queira usar uma expressão regular, ou `-L` para acompanhar como uma função evoluiu ao longo do tempo. Confira a documentação do `git log --help` para mais detalhes.
+
+Experimente e me conte os resultados :-)
 
 ## `git bisect`
 
-Suponha que você esteja corrigindo um bug, mudança de comportamento indesejada ou regressão de desempenho, e não sabe em que ponto essa mudança foi introduzida. Suponha que você não faz ideia do porquê o problema existe. Como você faria isso de modo eficiente, assumindo que o problema começou provavelmente com um único _commit_?
+Suponha que você esteja corrigindo um bug, mudança de comportamento indesejada ou regressão de desempenho. Suponha, além disso, que você não faz ideia do porquê o problema existe. Porém, você sabe que foi uma mudança no código-fonte que causou isso. Como você  descobriria a causa raiz do problema de um modo eficiente?
 
-O `git bisect` permite que você encontre _commits_ que introduziram mudanças e bugs de um jeito rápido e automatizável.
+O `git bisect` permite que você encontre _commits_ que introduziram mudanças e/ou bugs de um jeito rápido e automatizável.
 
 Como funciona? Você primeiro determina dois _commits_: um onde o problema não existia, e outro onde o problema passou a existir.
 
@@ -106,11 +106,17 @@ $ git bisect bad # commit atual tá quebrado
 $ git bisect good master # mas o commit da master tá ok
 ```
 
-A partir daí, o `git bisect` vai pular de _commit_ em _commit_, te perguntando se esse _commit_ está bom ou não após fazer o _checkout_.
+A partir daí, o `git bisect` vai te levar numa aventura mágica pelo seu repositório, te fazendo perguntas estranhas, para no fim lhe revelar, como se numa epifania, onde o problema surgiu[^1].
 
-As instruções são simples: dê uma olhada no seu repositório e verifique se o problema existe. Se o _commit_ estiver bom, você fala `git bisect good`. Se está ruim, você fala `git bisect bad`.
+[^1]: Que nem o [Akinator](https://akinator.com), só que para bugs no seu código.
 
-Um exemplo, se eu estivesse procurando por uma mudança na estilização do meu blog:
+...
+
+Perdão?
+
+As instruções são simples: o `git bisect` vai realizar alguns `checkouts` de commits específicos e mostrar eles para você. Após cada `checkout`, dê uma olhada no seu repositório e verifique se o problema existe. Se o _commit_ estiver bom, você fala `git bisect good`. Se está ruim, você fala `git bisect bad`.
+
+Um exemplo, se eu estivesse procurando por uma mudança na estilização do [meu currículo](/cv/):
 
 ```sh
 $ git bisect start
@@ -133,7 +139,7 @@ Bisecting: 0 revisions left to test after this (roughly 0 steps)
 
 Quando não houver mais commits para responder, ele vai avisar:
 
-```
+```sh
 $ git bisect good
 1b8d82e79ef4771408e2bed2aa15f01d2deda101 is the first bad commit
 commit 1b8d82e79ef4771408e2bed2aa15f01d2deda101
@@ -151,34 +157,54 @@ Date:   Sun Sep 21 20:03:52 2025 -0300
 
 E eis que você descobriu qual é o commit que introduziu o bug. 
 
-### Desempenho do `git bisect`
+### Funcionamento do `git bisect`
 
 Repare na primeira linha que ele exibiu após o ponto de partida e de fim serem especificados:
 
-```
+```txt
 Bisecting: 8 revisions left to test after this (roughly 3 steps) 
 ```
 
 Como ele consegue verificar 8 _commits_ em apenas 3 passos?
 
-O `git bisect` é inteligente e usa busca binária. Basicamente, ele corta o seu intervalo de _commits_ no meio e pergunta: nesse ponto, está bom ou ruim? 
+O `git bisect`, internamente, executa uma busca binária sobre o histórico de _commits_ do repositório dentro do intervalo especificado. Basicamente, ele corta o seu intervalo de _commits_ no meio e pergunta: nesse ponto, está bom ou ruim? 
 
-- Se estiver bom, então eu sei que o problema está na segunda metade do seu intervalo, e eu não preciso mais ver na primeira metade.
+- Se estiver bom, então eu sei que o problema está na segunda metade do seu intervalo, e eu não preciso mais ver nada da primeira metade.
 - Se estiver ruim, então o problema aconteceu na primeira metade, e a segunda pode ser descartada.
 
-Ou seja, a cada passo, ele joga metade dos commits fora (o nome do comando vem daí: ele faz uma _bisseção_ do seu histórico). Além disso, o `git bisect` é esperto o suficiente para conseguir lidar com outras topologias de _commits_ que não são apenas linhas retas, processando _merges_ sem problemas.
+Ou seja, a cada passo, ele joga metade dos problema restante fora[^2].
 
-Se você lembra da sua aula de algoritmos, você deve se lembrar que a complexidade de tempo da busca binária é \(\mathcal{O}(\log_2{n})\), enquanto a da busca linear é \(\mathcal{O}(n)\). Dito de outra forma, devido ao modo como ele funciona, ele conseguiria avaliar 10 000 commits em apenas 14 passos!
+Puxando a sardinha aqui para a aula de análise de algoritmos lá da faculdade, a complexidade de tempo da busca binária é \(O(\log_2{n})\), enquanto a da busca linear é \(O(n)\). O logaritmo aqui surge do resultado dessa relação recorrência:
+
+\[
+    T(n) = T\left(\frac{n}{2}\right) + c
+\]
+
+Pelo teorema mestre, a forma fechada dessa relação é:
+
+\[
+    T(n) = c\log_2{n}+c' \in O({\log_2{n}})
+\]
+
+Sendo \(c'\) o custo para resolver o caso base e \(c\) o custo constante para resolver o caso recursivo.
+
+[^2]: O nome do comando vem daí: ele faz uma _bisseção_ do histórico de _commits_.
+
+Dito de outra forma, devido ao modo como ele funciona, ele conseguiria avaliar 10 000 commits em apenas 14 passos!
 
 ![graph](graph.svg)
 
-| \(n\) | \(\log_2{n}) |
-|-|-|
+Uma tabela comparativa mostrando o número de _commits_ (coluna esquerda) e o número de passos (coluna direita) que o `bisect` teria de avaliar:
+
+| \(n\) | \(\log_2{(n)}\) |
+|:-:|:-:|
 | 1 | 0 |
 | 10 | ~3,32 |
 | 100 | ~6,64 |
 | 1000 | ~9,97 |
 | 10000 | ~13,29 |
+
+Além disso, o `git bisect` é esperto o suficiente para conseguir lidar com outras topologias de _commits_ que não são apenas linhas retas, processando _merges_ sem problemas. Legal, não?
 
 ### Automatizando a bisseção
 
@@ -188,7 +214,7 @@ Você pode escrever um comando, programa ou _script_ para automatizar a sua busc
 $ git bisect run dotnet test --filter "FullyQualifiedName~ClassNameTests"
 ```
 
-Você pode ser criativo com esse _script_. Por exemplo, aqui está um que verifica se o tempo de execução da aplicação passou a levar mais que 10 segundos:
+Aqui, ser criativo te recompensa. Por exemplo, segue um _script_ que verifica se o tempo de execução de um programa leva mais que 10 segundos:
 
 ```bash
 # measure_10.sh
@@ -209,8 +235,6 @@ Usando ele:
 ```sh
 $ git bisect run ./measure_10.sh
 ```
-
-Bem legal, não?
 
 ## Fontes
 
